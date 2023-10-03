@@ -4,17 +4,15 @@
 #   Displays minutes from 1 to 59
 
 hour=0
-max_hours=12
-max_minutes=59
 
 while [ $hour -le 12 ]
 do
-echo "Hour: $hour"
-minute=1
-while [ $minute -le 59 ]
-do
-	echo "$minute"
-(( minute++ ))
+	echo "Hour: $hour"
+	minute=1
+	while [ $minute -le 59 ]
+	do
+		echo "$minute"
+		(( minute++ ))
 	done
-(( hour++ ))
-	done
+	(( hour++ ))
+done
