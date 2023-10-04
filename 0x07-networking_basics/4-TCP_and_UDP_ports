@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script displays listening sockets along with PID and program name.
+
+netstat -tulnep | grep -E "^(tcp|udp)" | awk '{print "Protocol: "$1", Local Address: "$4", PID/Program name: ", system("lsof -n -i:"$4" | grep LISTEN | awk '\''{print $2, $1}'\''")}'
