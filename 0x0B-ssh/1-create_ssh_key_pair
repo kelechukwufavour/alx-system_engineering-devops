@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
-# Script to create an RSA key pair
+# Script to create an RSA key pair with a passphrase
 
-ssh-keygen -b 4096 -f school -t rsa -N betty
+passphrase="betty"
+ssh_key_comment="school"
+ssh_key_path="~/.ssh/school"
+
+ssh-keygen -t rsa -b 4096 -C "$ssh_key_comment" -f "$ssh_key_path" -N "$passphrase"
