@@ -1,5 +1,5 @@
-#!/usr/bin/env bashi
-#script to perform task 0 with less lines
-sed -i 's/default_server;/default_server; listen 80;/g' /etc/nginx/sites-available/default
+#!/usr/bin/env bash
+# script of task 0 but using less lines
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx restart
 kill "$(pgrep 'nginx' | head -1)"
