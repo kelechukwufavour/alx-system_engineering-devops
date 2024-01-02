@@ -1,11 +1,3 @@
 #!/usr/bin/env bash
 # run apache on holbertonschool
-echo "ServerName localhost" >> /etc/apache2/apache2.conf
-service apache2 start
-
-# Additional check for Apache running
-if ! (systemctl is-active apache2 | grep -q "active"); then
-echo "Error: Apache2 is not running"
-exit 1
-fi
-
+sudo service apache2 start
