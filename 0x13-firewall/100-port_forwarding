@@ -1,18 +1,10 @@
-#
-# rules.before
-#
-# Rules that should be run before the ufw command line added rules. Custom
-# rules should be added to one of these chains:
-#   ufw-before-input
-#   ufw-before-output
-#   ufw-before-forward
-#
+#!/usr/bin/env bash
 
 # Adding this line to forward all requests from port 8080 to port 80
 *nat
 :PREROUTING ACCEPT [0:0]
 -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
--A OUTPUT -p tcp --dport 8080 -j REDIRECT --to-port 80  # Add this line for OUTPUT chain
+-A OUTPUT -p tcp --dport 8080 -j REDIRECT --to-port 80
 COMMIT
 # end of my additions
 
@@ -51,6 +43,11 @@ COMMIT
 
 # allow dhcp client to work
 -A ufw-before-input -p udp --sport 67 --dport 68 -j ACCEPT
+
+# Allow incoming connections on specific ports
+-A ufw-before-input -p tcp --dport 22 -j ACCEPT
+-A ufw-before-input -p tcp --dport 80 -j ACCEPT
+-A ufw-before-input -p tcp --dport 443 -j ACCEPT
 
 #
 # ufw-not-local

@@ -6,9 +6,9 @@ sudo apt-get install nginx ufw -y
 
 # Configure ufw to block all incoming traffic except for specific TCP ports
 sudo ufw default deny incoming
-sudo ufw allow ssh
-sudo ufw allow 443/tcp
-sudo ufw allow 80/tcp
+sudo ufw allow 22/tcp   # Allowing SSH
+sudo ufw allow 80/tcp   # Allowing HTTP
+sudo ufw allow 443/tcp  # Allowing HTTPS
 
 # Enable ufw and reload nginx
 sudo ufw enable
