@@ -34,12 +34,13 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend ssl_443
-         bind *:443 ssl crt /etc/haproxy/cert/cert.pem
+frontend ruova.tech.com.ng
+	 bind 0:80
+	 bind 0:443 ssl crt /etc/haproxy/cert/cert.pem
          reqadd X-Forwarded-Proto:\ https
          default_backend web_servers
 
-frontend ruova.tech
+frontend ruova.tech.com.ng
         bind 0:80
         reqadd X-Forwarded-Proto:\ http
         redirect scheme https code 301 if !{ ssl_fc }
@@ -47,4 +48,6 @@ frontend ruova.tech
 
 backend web_servers
         balance roundrobin
-        redirect scheme https if !{ ssl_fc }
+        server hostname hostIP:PORT check
+        server 328587-web-01 35.175.65.241
+        server 328587-web-02 35.175.130.125 
