@@ -1,4 +1,3 @@
-
 global
         log /dev/log    local0
         log /dev/log    local1 notice
@@ -34,12 +33,21 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend ruova.tech.com.ng
+frontend ssl_443
+    bind *:443 ssl crt /etc/letsencrypt/live/www.ruova.tech/www.ruova.tech.pem 
+    http-request add-header X-Forwarded-Proto https
+    redirect scheme https code 301 if !{ ssl_fc }
+    default_backend web_servers
+
+frontend ruova.tech
         bind 0:80
+        reqadd X-Forwarded-Proto:\ http
+        redirect scheme https code 301 if !{ ssl_fc }
         default_backend web_servers
+
 
 backend web_servers
         balance roundrobin
-        server hostname hostIP:PORT check
+        redirect scheme https if !{ ssl_fc }
         server 328587-web-01 35.175.65.241
         server 328587-web-02 35.175.130.125
