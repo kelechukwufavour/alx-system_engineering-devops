@@ -12,8 +12,10 @@ if __name__ == "__main__":
         exit(1)
 
     employee_id = int(argv[1])
-    user_url = "https://jsonplaceholder.typicode.com/users/{}".format(employee_id)
-    todos_url = "https://jsonplaceholder.typicode.com/todos?userId={}".format(employee_id)
+    user_url = "https://jsonplaceholder.typicode.com/users/{}"
+    .format(employee_id)
+    todos_url = "https://jsonplaceholder.typicode.com/todos?userId={}"
+    .format(employee_id)
 
     try:
         user_response = requests.get(user_url)
