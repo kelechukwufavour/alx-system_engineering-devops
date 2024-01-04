@@ -35,8 +35,7 @@ defaults
 
 frontend ssl_443
     bind *:443 ssl crt /etc/letsencrypt/live/www.ruova.tech/www.ruova.tech.pem 
-    http-request add-header X-Forwarded-Proto https
-    redirect scheme https code 301 if !{ ssl_fc }
+    reqadd X-Forwarded-Proto:\ https
     default_backend web_servers
 
 frontend ruova.tech
