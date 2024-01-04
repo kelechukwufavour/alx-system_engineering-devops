@@ -18,6 +18,12 @@ frontend http_front
 
     default_backend http_back
 
+frontend https_front
+    bind *:443 ssl crt /etc/ssl/private/cert.pem
+    mode http
+    option forwardfor
+    default_backend http_back
+
 backend http_back
     mode http
     balance roundrobin
