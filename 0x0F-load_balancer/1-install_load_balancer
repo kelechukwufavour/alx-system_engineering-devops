@@ -13,6 +13,7 @@ frontend ruova.tech.com.ng
 
 backend web_servers
         balance roundrobin
+	server hostname hostIP:PORT check
         server 328587-web-01 35.175.65.241
         server 328587-web-02 35.175.130.125
 ' >> /etc/haproxy/haproxy.cfg
