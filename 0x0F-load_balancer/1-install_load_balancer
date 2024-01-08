@@ -5,6 +5,7 @@
 sudo apt-get update
 sudo apt-get install -y haproxy
 
+<<<<<<< HEAD
 # Configure HAProxy
 sudo bash -c "cat > /etc/haproxy/haproxy.cfg" <<EOL
 frontend http_front
@@ -18,6 +19,20 @@ backend http_back
     server web-01 [35.175.65.241]-web-01:80 check
     server web-02 [35.175.130.125]-web-02:80 check
 EOL
+=======
+# Configure haproxy configuration file to distribute requests using a roundrobin algorithm
+echo '
+frontend ruova.tech.com.ng
+        bind 0:80
+        default_backend web_servers
+
+backend web_servers
+        balance roundrobin
+	server hostname hostIP:PORT check
+        server 328587-web-01 35.175.65.241
+        server 328587-web-02 35.175.130.125
+' >> /etc/haproxy/haproxy.cfg
+>>>>>>> ca830e877ba8b0ab273a08997b684b655775d115
 
 # Ensure HAProxy can be managed via init script
 sudo systemctl enable haproxy
