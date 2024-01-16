@@ -1,10 +1,25 @@
 #!/usr/bin/env bash
-# configures a new HAproxy as a load balancer
+# This script installs and configures HAProxy on Ubuntu
 
-# Install HAproxy on a server
-apt-get -y update
-apt-get -y install haproxy=1.6.\*
+# Update and install HAProxy
+sudo apt-get update
+sudo apt-get install -y haproxy
 
+<<<<<<< HEAD
+# Configure HAProxy
+sudo bash -c "cat > /etc/haproxy/haproxy.cfg" <<EOL
+frontend http_front
+    bind *:80
+    mode http
+    default_backend http_back
+
+backend http_back
+    mode http
+    balance roundrobin
+    server web-01 [35.175.65.241]-web-01:80 check
+    server web-02 [35.175.130.125]-web-02:80 check
+EOL
+=======
 # Configure haproxy configuration file to distribute requests using a roundrobin algorithm
 echo '
 frontend ruova.tech.com.ng
@@ -17,6 +32,11 @@ backend web_servers
         server 328587-web-01 35.175.65.241
         server 328587-web-02 35.175.130.125
 ' >> /etc/haproxy/haproxy.cfg
+>>>>>>> ca830e877ba8b0ab273a08997b684b655775d115
 
-# Restart HAproxy service
-service haproxy restart
+# Ensure HAProxy can be managed via init script
+sudo systemctl enable haproxy
+sudo systemctl restart haproxy
+
+# Verify HAProxy status
+sudo systemctl status haproxy
