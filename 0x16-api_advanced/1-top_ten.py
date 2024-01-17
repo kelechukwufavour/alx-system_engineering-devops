@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Contains top_ten function"""
 import requests
-
+import json
 
 def top_ten(subreddit):
     """Print the titles of the 10 hottest posts on a given subreddit."""
@@ -21,16 +21,17 @@ def top_ten(subreddit):
             print("None")
             return
 
-        results = response.json().get("data")
-        if not results or "children" not in results:
-            print("None")
-            return
+        try:
+            results = response.json().get("data")
+            if not results or "children" not in results:
+                print("None")
+                return
 
-        [print(c.get("data").get("title")) for c in results.get("children")]
+            [print(c.get("data").get("title")) for c in results.get("children")]
+
+        except json.decoder.JSONDecodeError:
+            print("None")
 
     except requests.RequestException as e:
         print(f"Error fetching data: {e}")
         print("None")
-
-# Example usage:
-# top_ten('python')

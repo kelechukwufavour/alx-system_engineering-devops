@@ -18,9 +18,12 @@ def number_of_subscribers(subreddit):
         response = requests.get(url, headers=headers, timeout=5)
         response.raise_for_status()  # Raises an HTTPError for bad responses
 
-        data = response.json()
-        subscribers = data.get("data", {}).get("subscribers", 0)
-        return subscribers
+        if response.status_code == 200:
+            data = response.json()
+            subscribers = data.get("data", {}).get("subscribers", 0)
+            return subscribers
+        else:
+            return 0
     except requests.RequestException as e:
         print(f"Error fetching data: {e}")
         return 0

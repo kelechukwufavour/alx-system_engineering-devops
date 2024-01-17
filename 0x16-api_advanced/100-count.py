@@ -5,6 +5,7 @@ and prints a sorted count of given keywords.
 """
 
 import requests
+import json
 
 def count_words(subreddit, word_list, counts=None):
     if counts is None:
@@ -37,4 +38,10 @@ def count_words(subreddit, word_list, counts=None):
         return None
 
 # Example usage:
-# count_words('python', ['python', 'java', 'javascript'])
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) < 3:
+        print("Usage: {} <subreddit> <list of keywords>".format(sys.argv[0]))
+        print("Ex: {} programming 'python java javascript'".format(sys.argv[0]))
+    else:
+        count_words(sys.argv[1], [x for x in sys.argv[2].split()])
